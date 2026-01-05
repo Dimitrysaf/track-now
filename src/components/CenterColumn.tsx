@@ -76,15 +76,15 @@ const CenterColumn = () => {
 
   const CountdownUnit = ({ value, unit }: { value: number, unit: string }) => (
     <div className="flex flex-col items-center">
-        <span className="text-5xl md:text-4xl font-bold">{String(value).padStart(2, '0')}</span>
         <span className="text-base md:text-xs text-zinc-500 uppercase tracking-widest">{unit}</span>
+        <span className="text-5xl md:text-6xl font-bold">{String(value).padStart(2, '0')}</span>
     </div>
   )
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#09090b] text-white">
       <div className="absolute inset-0 bg-blue-900/5 radial-gradient" />
-      <div className="relative w-full h-screen flex flex-col items-center justify-around">
+      <div className="relative w-full min-h-screen flex flex-col items-center justify-around">
         <div className="flex flex-col items-center">
             <div className="w-full max-w-[95vw] h-[50vh] md:h-[60vh] relative">
               <svg 
@@ -107,7 +107,7 @@ const CenterColumn = () => {
                       fontSize="100" 
                       fontWeight="950" 
                       fill="white"
-                      style={{ fontFamily: 'system-ui, sans-serif', letterSpacing: '-0.05em' }}
+                      style={{ fontFamily: 'system-.ui, sans-serif', letterSpacing: '-0.05em' }}
                     >
                       ΝΔ
                     </text>
@@ -151,7 +151,7 @@ const CenterColumn = () => {
                 </div>
                 <span className="h-px w-16 md:w-24 bg-zinc-800" />
               </div>
-              <div className={`flex flex-col md:flex-row flex-wrap justify-center items-center gap-4 md:gap-8 ${isLessThanTenDays ? 'text-blue-500' : 'text-white'}`}>
+              <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-center ${isLessThanTenDays ? 'text-blue-500' : 'text-white'}`}>
                 {countdown.years > 0 && <CountdownUnit value={countdown.years} unit="ΕΤΟΣ" />}
                 {countdown.months > 0 && <CountdownUnit value={countdown.months} unit="ΜΗΝΕΣ" />}
                 {countdown.days > 0 && <CountdownUnit value={countdown.days} unit="ΗΜΕΡΕΣ" />}
