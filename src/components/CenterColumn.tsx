@@ -80,15 +80,6 @@ const TermTracker = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#09090b] text-white overflow-hidden p-0">
       <div className="absolute inset-0 bg-blue-900/5 radial-gradient" />
       <div className="relative w-full h-screen flex flex-col items-center justify-around">
-        <div className="absolute top-10 left-10 space-y-1 z-20">
-          <p className="text-zinc-500 text-[10px] uppercase tracking-[0.3em] font-bold">ΚΟΙΝΟΒΟΥΛΕΥΤΙΚΗ ΙΣΧΥΣ</p>
-          <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-black text-white">158</span>
-            <span className="text-zinc-500 text-sm">/ 300 ΕΔΡΕΣ</span>
-          </div>
-          <p className="text-blue-500 font-mono text-xs">52.6% ΤΟΥ ΣΩΜΑΤΟΣ</p>
-        </div>
-
         <div className="flex flex-col items-center">
             <div className="w-full max-w-[95vw] h-[60vh] relative">
               <svg 
@@ -159,14 +150,13 @@ const TermTracker = () => {
         </div>
 
         <div className="flex items-center gap-8 text-white">
-            <CountdownUnit value={countdown.years} unit="ΧΡΟΝΙΑ" />
+            <CountdownUnit value={countdown.years} unit="ΕΤΟΣ" />
             <CountdownUnit value={countdown.months} unit="ΜΗΝΕΣ" />
             <CountdownUnit value={countdown.days} unit="ΗΜΕΡΕΣ" />
             <CountdownUnit value={countdown.hours} unit="ΩΡΕΣ" />
             <CountdownUnit value={countdown.minutes} unit="ΛΕΠΤΑ" />
             <CountdownUnit value={countdown.seconds} unit="ΔΕΥΤΕΡ." />
         </div>
-
       </div>
     </div>
   );

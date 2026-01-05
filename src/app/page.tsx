@@ -1,26 +1,24 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from 'react';
-import TermTracker from '@/components /TermTracker';
+import React from 'react';
+import LeftColumn from '../components/LeftColumn';
+import RightColumn from '../components/RightColumn';
+import TermTracker from '../components/CenterColumn';
 
-export default function GiantNDTracker() {
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const startDate = new Date('2023-06-25').getTime();
-    const endDate = new Date('2027-06-25').getTime();
-    const now = new Date().getTime();
-
-    const total = endDate - startDate;
-    const elapsed = now - startDate;
-    const currentProgress = Math.min(Math.max((elapsed / total) * 100, 0), 100);
-    
-    setProgress(currentProgress);
-  }, []);
-
+const Page = () => {
   return (
-    <div>
-      <TermTracker />
+    <div className="grid grid-cols-1 md:grid-cols-3 h-screen">
+      <div className="order-1 md:order-2">
+        <TermTracker />
+      </div>
+      <div className="order-2 md:order-1">
+        <LeftColumn />
+      </div>
+      <div className="order-3">
+        <RightColumn />
+      </div>
     </div>
   );
-}
+};
+
+export default Page;
