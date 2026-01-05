@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 
-const TermTracker = () => {
+const CenterColumn = () => {
   const [progress, setProgress] = useState(0);
   const [countdown, setCountdown] = useState({
     years: 0,
@@ -71,17 +71,17 @@ const TermTracker = () => {
 
   const CountdownUnit = ({ value, unit }: { value: number, unit: string }) => (
     <div className="flex flex-col items-center">
-        <span className="text-4xl font-bold">{String(value).padStart(2, '0')}</span>
-        <span className="text-xs text-zinc-500 uppercase tracking-widest">{unit}</span>
+        <span className="text-[clamp(1.5rem,5vw,2.25rem)] font-bold">{String(value).padStart(2, '0')}</span>
+        <span className="text-[clamp(0.6rem,1.5vw,0.75rem)] text-zinc-500 uppercase tracking-widest">{unit}</span>
     </div>
   )
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-[#09090b] text-white overflow-hidden p-0">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#09090b] text-white overflow-hidden">
       <div className="absolute inset-0 bg-blue-900/5 radial-gradient" />
       <div className="relative w-full h-screen flex flex-col items-center justify-around">
         <div className="flex flex-col items-center">
-            <div className="w-full max-w-[95vw] h-[60vh] relative">
+            <div className="w-full max-w-[95vw] h-[50vh] md:h-[60vh] relative">
               <svg 
                 viewBox="0 0 200 100" 
                 className="w-full h-full drop-shadow-[0_0_50px_rgba(0,69,136,0.3)]"
@@ -99,7 +99,7 @@ const TermTracker = () => {
                       x="50%" 
                       y="85" 
                       textAnchor="middle" 
-                      fontSize="95" 
+                      fontSize="100" 
                       fontWeight="950" 
                       fill="white"
                       style={{ fontFamily: 'system-ui, sans-serif', letterSpacing: '-0.05em' }}
@@ -112,7 +112,7 @@ const TermTracker = () => {
                   x="50%" 
                   y="85" 
                   textAnchor="middle" 
-                  fontSize="95" 
+                  fontSize="100" 
                   fontWeight="950" 
                   className="fill-zinc-900/80"
                   style={{ fontFamily: 'system-ui, sans-serif', letterSpacing: '-0.05em' }}
@@ -132,24 +132,24 @@ const TermTracker = () => {
                 </g>
               </svg>
             </div>
-            <div className="mt-4 flex flex-col items-center z-10">
-              <h1 className="text-[12vw] font-black tracking-tighter tabular-nums leading-none">
+            <div className="-mt-8 md:-mt-16 flex flex-col items-center z-10 w-full">
+            <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
                 {progress.toFixed(1)}%
               </h1>
-              <div className="mt-6 flex items-center gap-6">
-                <span className="h-px w-24 bg-zinc-800" />
-                <div className="text-center">
-                  <p className="text-white font-bold tracking-widest text-sm uppercase">ΝΕΑ ΔΗΜΟΚΡΑΤΙΑ</p>
-                  <p className="text-zinc-500 uppercase tracking-[0.4em] text-[9px] mt-1 font-bold">
+              <div className="mt-4 md:mt-6 flex items-center justify-center gap-3 md:gap-6 w-full">
+                <span className="h-px w-16 md:w-24 bg-zinc-800" />
+                <div className="text-center flex-shrink-0">
+                  <p className="text-white font-bold tracking-widest text-[clamp(0.6rem,2vw,0.875rem)] uppercase">ΝΕΑ ΔΗΜΟΚΡΑΤΙΑ</p>
+                  <p className="text-zinc-500 uppercase tracking-[0.2em] md:tracking-[0.4em] text-[clamp(0.4rem,1.5vw,0.5625rem)] mt-1 font-bold">
                     ΧΡΟΝΟΣ ΘΗΤΕΙΑΣ
                   </p>
                 </div>
-                <span className="h-px w-24 bg-zinc-800" />
+                <span className="h-px w-16 md:w-24 bg-zinc-800" />
               </div>
             </div>
         </div>
 
-        <div className="flex items-center gap-8 text-white">
+        <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 text-white">
             <CountdownUnit value={countdown.years} unit="ΕΤΟΣ" />
             <CountdownUnit value={countdown.months} unit="ΜΗΝΕΣ" />
             <CountdownUnit value={countdown.days} unit="ΗΜΕΡΕΣ" />
@@ -162,4 +162,4 @@ const TermTracker = () => {
   );
 };
 
-export default TermTracker;
+export default CenterColumn;
