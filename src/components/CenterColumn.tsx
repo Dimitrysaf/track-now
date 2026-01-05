@@ -1,85 +1,57 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import CountdownTimer from './CountdownTimer';
 
 const CenterColumn = () => {
-  const [progress, setProgress] = useState(0);
-  const [countdown, setCountdown] = useState({
-    years: 0,
-    months: 0,
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
-  const [isLessThanTenDays, setIsLessThanTenDays] = useState(false);
+  const startDate = new Date('2023-06-25').getTime();
+  const endDate = new Date('2027-03-15').getTime();
 
-  useEffect(() => {
-    const startDate = new Date('2023-06-25').getTime();
-    const endDate = new Date('2027-03-15').getTime();
+  const calculateProgress = () => {
+      const now = new Date().getTime();
+      const totalDuration = endDate - startDate;
+      const elapsed = now - startDate;
+      return Math.min(Math.max((elapsed / totalDuration) * 100, 0), 100);
+  }
 
-    const calculateProgress = () => {
-        const now = new Date().getTime();
-        const totalDuration = endDate - startDate;
-        const elapsed = now - startDate;
-        const currentProgress = Math.min(Math.max((elapsed / totalDuration) * 100, 0), 100);
-        setProgress(currentProgress);
-    }
+  const calculateCountdown = () => {
+      const now = new Date();
+      const end = new Date('2027-03-15');
+      
+      let years = end.getFullYear() - now.getFullYear();
+      let months = end.getMonth() - now.getMonth();
+      let days = end.getDate() - now.getDate();
+      let hours = end.getHours() - now.getHours();
+      let minutes = end.getMinutes() - now.getMinutes();
+      let seconds = end.getSeconds() - now.getSeconds();
 
-    const calculateCountdown = () => {
-        const now = new Date();
-        const end = new Date('2027-03-15');
-        
-        const remainingTime = end.getTime() - now.getTime();
-        const remainingDaysTotal = remainingTime / (1000 * 60 * 60 * 24);
-        setIsLessThanTenDays(remainingDaysTotal <= 10);
-        
-        let years = end.getFullYear() - now.getFullYear();
-        let months = end.getMonth() - now.getMonth();
-        let days = end.getDate() - now.getDate();
-        let hours = end.getHours() - now.getHours();
-        let minutes = end.getMinutes() - now.getMinutes();
-        let seconds = end.getSeconds() - now.getSeconds();
+      if (seconds < 0) {
+          seconds += 60;
+          minutes--;
+      }
+      if (minutes < 0) {
+          minutes += 60;
+          hours--;
+      }
+      if (hours < 0) {
+          hours += 24;
+          days--;
+      }
+      if (days < 0) {
+          const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+          days += prevMonth.getDate();
+          months--;
+      }
+      if (months < 0) {
+          months += 12;
+          years--;
+      }
 
-        if (seconds < 0) {
-            seconds += 60;
-            minutes--;
-        }
-        if (minutes < 0) {
-            minutes += 60;
-            hours--;
-        }
-        if (hours < 0) {
-            hours += 24;
-            days--;
-        }
-        if (days < 0) {
-            const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-            days += prevMonth.getDate();
-            months--;
-        }
-        if (months < 0) {
-            months += 12;
-            years--;
-        }
-
-        setCountdown({ years, months, days, hours, minutes, seconds });
-    }
-    
-    calculateProgress();
-    calculateCountdown();
-
-    const interval = setInterval(calculateCountdown, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const CountdownUnit = ({ value, unit }: { value: number, unit: string }) => (
-    <div className="flex flex-col items-center">
-        <span className="text-base md:text-xs text-zinc-500 uppercase tracking-widest">{unit}</span>
-        <span className="text-5xl md:text-6xl font-bold">{String(value).padStart(2, '0')}</span>
-    </div>
-  )
+      return { years, months, days, hours, minutes, seconds };
+  }
+  
+  const progress = calculateProgress();
+  const initialCountdown = calculateCountdown();
+  const remainingTime = new Date('2027-03-15').getTime() - new Date().getTime();
+  const isLessThanTenDays = remainingTime / (1000 * 60 * 60 * 24) <= 10;
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#09090b] text-white">
@@ -107,7 +79,7 @@ const CenterColumn = () => {
                       fontSize="100" 
                       fontWeight="950" 
                       fill="white"
-                      style={{ fontFamily: 'system-.ui, sans-serif', letterSpacing: '-0.05em' }}
+                      style={{ fontFamily: 'system-ui, sans-serif', letterSpacing: '-0.05em' }}
                     >
                       ΝΔ
                     </text>
@@ -151,14 +123,7 @@ const CenterColumn = () => {
                 </div>
                 <span className="h-px w-16 md:w-24 bg-zinc-800" />
               </div>
-              <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-center ${isLessThanTenDays ? 'text-blue-500' : 'text-white'}`}>
-                {countdown.years > 0 && <CountdownUnit value={countdown.years} unit="ΕΤΟΣ" />}
-                {countdown.months > 0 && <CountdownUnit value={countdown.months} unit="ΜΗΝΕΣ" />}
-                {countdown.days > 0 && <CountdownUnit value={countdown.days} unit="ΗΜΕΡΕΣ" />}
-                {countdown.hours > 0 && <CountdownUnit value={countdown.hours} unit="ΩΡΕΣ" />}
-                {countdown.minutes > 0 && <CountdownUnit value={countdown.minutes} unit="ΛΕΠΤΑ" />}
-                <CountdownUnit value={countdown.seconds} unit="ΔΕΥΤΕΡ." />
-              </div>
+              <CountdownTimer initialCountdown={initialCountdown} isLessThanTenDays={isLessThanTenDays} />
             </div>
         </div>
       </div>
