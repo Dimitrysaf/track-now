@@ -12,10 +12,11 @@ const CenterColumn = () => {
     minutes: 0,
     seconds: 0,
   });
+  const [isLessThanTenDays, setIsLessThanTenDays] = useState(false);
 
   useEffect(() => {
     const startDate = new Date('2023-06-25').getTime();
-    const endDate = new Date('2027-06-25').getTime();
+    const endDate = new Date('2027-03-15').getTime();
 
     const calculateProgress = () => {
         const now = new Date().getTime();
@@ -27,7 +28,11 @@ const CenterColumn = () => {
 
     const calculateCountdown = () => {
         const now = new Date();
-        const end = new Date('2027-06-25');
+        const end = new Date('2027-03-15');
+        
+        const remainingTime = end.getTime() - now.getTime();
+        const remainingDaysTotal = remainingTime / (1000 * 60 * 60 * 24);
+        setIsLessThanTenDays(remainingDaysTotal <= 10);
         
         let years = end.getFullYear() - now.getFullYear();
         let months = end.getMonth() - now.getMonth();
@@ -92,7 +97,7 @@ const CenterColumn = () => {
                     <feTurbulence type="fractalNoise" baseFrequency="0.015 0.03" numOctaves="1" result="warp">
                       <animate attributeName="baseFrequency" values="0.015 0.03; 0.015 0.12; 0.015 0.03" dur="10s" repeatCount="indefinite" />
                     </feTurbulence>
-                    <feDisplacementMap in="SourceGraphic" in2="warp" scale="8" />
+                    <feDisplacementMap in="SourceGraphic" in2="warp" scale="3" />
                   </filter>
                   <mask id="nd-mask-massive">
                     <text 
@@ -125,7 +130,7 @@ const CenterColumn = () => {
                     y={100 - progress} 
                     width="240" 
                     height="120" 
-                    fill="#004588"
+                    fill={isLessThanTenDays ? "#ff0000" : "#004588"}
                     filter="url(#wave-filter)"
                     className="transition-all duration-1000 ease-in-out"
                   />
@@ -134,24 +139,24 @@ const CenterColumn = () => {
             </div>
             <div className="-mt-8 md:-mt-16 flex flex-col items-center z-10 w-full">
               <h1 className="scroll-m-20 text-center text-8xl font-extrabold tracking-tight text-balance">
-                {progress.toFixed(1)}%
+                {progress.toFixed(5)}%
               </h1>
               <div className="mt-4 md:mt-6 flex items-center justify-center md:gap-6 w-full">
                 <span className="h-px w-16 md:w-24 bg-zinc-800" />
                 <div className="text-center flex-shrink-0">
                   <p className="text-white font-bold tracking-widest text-[clamp(0.6rem,2vw,0.875rem)] uppercase">ΝΕΑ ΔΗΜΟΚΡΑΤΙΑ</p>
                   <p className="text-zinc-500 uppercase tracking-[0.2em] md:tracking-[0.4em] text-[clamp(0.4rem,1.5vw,0.5625rem)] mt-1 font-bold">
-                    ΧΡΟΝΟΣ ΘΗΤΕΙΑΣ
+                    Η ΘΗΤΕΙΑ ΤΗΣ ΤΕΛΕΙΩΝΕΙ ΣΕ:
                   </p>
                 </div>
                 <span className="h-px w-16 md:w-24 bg-zinc-800" />
               </div>
-              <div className="flex flex-wrap justify-center items-center md:gap-8 text-white">
-                <CountdownUnit value={countdown.years} unit="ΕΤΟΣ" />
-                <CountdownUnit value={countdown.months} unit="ΜΗΝΕΣ" />
-                <CountdownUnit value={countdown.days} unit="ΗΜΕΡΕΣ" />
-                <CountdownUnit value={countdown.hours} unit="ΩΡΕΣ" />
-                <CountdownUnit value={countdown.minutes} unit="ΛΕΠΤΑ" />
+              <div className={`flex flex-wrap justify-center items-center md:gap-8 ${isLessThanTenDays ? 'text-blue-500' : 'text-white'}`}>
+                {countdown.years > 0 && <CountdownUnit value={countdown.years} unit="ΕΤΟΣ" />}
+                {countdown.months > 0 && <CountdownUnit value={countdown.months} unit="ΜΗΝΕΣ" />}
+                {countdown.days > 0 && <CountdownUnit value={countdown.days} unit="ΗΜΕΡΕΣ" />}
+                {countdown.hours > 0 && <CountdownUnit value={countdown.hours} unit="ΩΡΕΣ" />}
+                {countdown.minutes > 0 && <CountdownUnit value={countdown.minutes} unit="ΛΕΠΤΑ" />}
                 <CountdownUnit value={countdown.seconds} unit="ΔΕΥΤΕΡ." />
               </div>
             </div>
