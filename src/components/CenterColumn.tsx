@@ -76,13 +76,13 @@ const CenterColumn = () => {
 
   const CountdownUnit = ({ value, unit }: { value: number, unit: string }) => (
     <div className="flex flex-col items-center">
-        <span className="text-6xl md:text-4xl font-bold">{String(value).padStart(2, '0')}</span>
+        <span className="text-5xl md:text-4xl font-bold">{String(value).padStart(2, '0')}</span>
         <span className="text-base md:text-xs text-zinc-500 uppercase tracking-widest">{unit}</span>
     </div>
   )
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-[#09090b] text-white overflow-hidden">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#09090b] text-white">
       <div className="absolute inset-0 bg-blue-900/5 radial-gradient" />
       <div className="relative w-full h-screen flex flex-col items-center justify-around">
         <div className="flex flex-col items-center">
