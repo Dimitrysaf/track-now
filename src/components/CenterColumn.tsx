@@ -133,7 +133,7 @@ const CenterColumn = () => {
               </svg>
             </div>
             <div className="-mt-8 md:-mt-16 flex flex-col items-center z-10 w-full">
-            <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
+            <h1 className="scroll-m-20 text-center text-8xl font-extrabold tracking-tight text-balance">
                 {progress.toFixed(1)}%
               </h1>
               <div className="mt-4 md:mt-6 flex items-center justify-center gap-3 md:gap-6 w-full">
