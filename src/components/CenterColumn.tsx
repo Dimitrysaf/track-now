@@ -133,10 +133,10 @@ const CenterColumn = () => {
               </svg>
             </div>
             <div className="-mt-8 md:-mt-16 flex flex-col items-center z-10 w-full">
-            <h1 className="scroll-m-20 text-center text-8xl font-extrabold tracking-tight text-balance">
+              <h1 className="scroll-m-20 text-center text-8xl font-extrabold tracking-tight text-balance">
                 {progress.toFixed(1)}%
               </h1>
-              <div className="mt-4 md:mt-6 flex items-center justify-center gap-3 md:gap-6 w-full">
+              <div className="mt-4 md:mt-6 flex items-center justify-center md:gap-6 w-full">
                 <span className="h-px w-16 md:w-24 bg-zinc-800" />
                 <div className="text-center flex-shrink-0">
                   <p className="text-white font-bold tracking-widest text-[clamp(0.6rem,2vw,0.875rem)] uppercase">ΝΕΑ ΔΗΜΟΚΡΑΤΙΑ</p>
@@ -146,16 +146,15 @@ const CenterColumn = () => {
                 </div>
                 <span className="h-px w-16 md:w-24 bg-zinc-800" />
               </div>
+              <div className="flex flex-wrap justify-center items-center md:gap-8 text-white">
+                <CountdownUnit value={countdown.years} unit="ΕΤΟΣ" />
+                <CountdownUnit value={countdown.months} unit="ΜΗΝΕΣ" />
+                <CountdownUnit value={countdown.days} unit="ΗΜΕΡΕΣ" />
+                <CountdownUnit value={countdown.hours} unit="ΩΡΕΣ" />
+                <CountdownUnit value={countdown.minutes} unit="ΛΕΠΤΑ" />
+                <CountdownUnit value={countdown.seconds} unit="ΔΕΥΤΕΡ." />
+              </div>
             </div>
-        </div>
-
-        <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 text-white">
-            <CountdownUnit value={countdown.years} unit="ΕΤΟΣ" />
-            <CountdownUnit value={countdown.months} unit="ΜΗΝΕΣ" />
-            <CountdownUnit value={countdown.days} unit="ΗΜΕΡΕΣ" />
-            <CountdownUnit value={countdown.hours} unit="ΩΡΕΣ" />
-            <CountdownUnit value={countdown.minutes} unit="ΛΕΠΤΑ" />
-            <CountdownUnit value={countdown.seconds} unit="ΔΕΥΤΕΡ." />
         </div>
       </div>
     </div>
