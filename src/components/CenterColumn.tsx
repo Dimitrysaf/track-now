@@ -76,8 +76,8 @@ const CenterColumn = () => {
 
   const CountdownUnit = ({ value, unit }: { value: number, unit: string }) => (
     <div className="flex flex-col items-center">
-        <span className="text-[clamp(1.5rem,5vw,2.25rem)] font-bold">{String(value).padStart(2, '0')}</span>
-        <span className="text-[clamp(0.6rem,1.5vw,0.75rem)] text-zinc-500 uppercase tracking-widest">{unit}</span>
+        <span className="text-6xl md:text-4xl font-bold">{String(value).padStart(2, '0')}</span>
+        <span className="text-base md:text-xs text-zinc-500 uppercase tracking-widest">{unit}</span>
     </div>
   )
 
@@ -139,7 +139,7 @@ const CenterColumn = () => {
             </div>
             <div className="-mt-8 md:-mt-16 flex flex-col items-center z-10 w-full">
               <h1 className="scroll-m-20 text-center text-8xl font-extrabold tracking-tight text-balance">
-                {progress.toFixed(5)}%
+                {progress.toFixed(2)}%
               </h1>
               <div className="mt-4 md:mt-6 flex items-center justify-center md:gap-6 w-full">
                 <span className="h-px w-16 md:w-24 bg-zinc-800" />
@@ -151,7 +151,7 @@ const CenterColumn = () => {
                 </div>
                 <span className="h-px w-16 md:w-24 bg-zinc-800" />
               </div>
-              <div className={`flex flex-wrap justify-center items-center md:gap-8 ${isLessThanTenDays ? 'text-blue-500' : 'text-white'}`}>
+              <div className={`flex flex-col md:flex-row flex-wrap justify-center items-center gap-4 md:gap-8 ${isLessThanTenDays ? 'text-blue-500' : 'text-white'}`}>
                 {countdown.years > 0 && <CountdownUnit value={countdown.years} unit="ΕΤΟΣ" />}
                 {countdown.months > 0 && <CountdownUnit value={countdown.months} unit="ΜΗΝΕΣ" />}
                 {countdown.days > 0 && <CountdownUnit value={countdown.days} unit="ΗΜΕΡΕΣ" />}
